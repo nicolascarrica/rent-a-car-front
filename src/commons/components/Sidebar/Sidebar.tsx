@@ -1,44 +1,86 @@
+import { useContext, useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useWindowSize } from "usehooks-ts";
+import SidebarContext from "../store/sidebarContext";
+import LoginContext from "../store/loginContext";
+import classes from "./Sidebar.module.scss";
+import images from "../../constants/images";
+import sidebarNav from "../Config/sidebarNav";
+import { Icon } from "@iconify/react/dist/iconify.js";
+import ThemeBox from "../ThemeBox/ThemeBox";
+function Sidebar() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const { width } = useWindowSize();
+  const location = useLocation();
+  const sidebarCtx = useContext(SidebarContext);
+  const loginCtx = useContext(LoginContext);
 
-import { ThemeContext } from "../../../App";
-import { useContext } from "react";
-import { Divider, SidebarContainer } from "./Sidebar.styles";
-import { AiOutlineLeft } from "react-icons/ai";
-import logo from "../../assets/images/rent-a-car.png"
-import { DataLinks, SecondaryLinks } from "../../utils/DataLinks";
-import { SidebarLink } from "./SidebarLink";
-import { ThemeToggle } from "./ThemeToggle";
-interface SidebarProps {
-  readonly sidebarOpen: boolean;
-  readonly setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
+  function openSidebarHandler() {
+    if (width <=7680) document.body.classList.toggle("sidebar__open");
+  }
 
-export const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) =>{
-  const { theme, setTheme } = useContext(ThemeContext) || { theme: "default", setTheme: () => {} }
-  const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light")
+  function logoutHandler() {
+    openSidebarHandler();
+    loginCtx.toggleLogin();
+  }
+
+  useEffect(() => {
+    const curPath = window.location.pathname.split("/")[1];
+    const activeItem = sidebarNav.findIndex((item) => item.section === curPath);
+
+    setActiveIndex(curPath.length === 0 ? 0 : activeItem);
+  }, [location]);
 
   return (
-    <SidebarContainer isOpen={sidebarOpen}>
-      <button 
-        className="SidebarButton"
-        onClick={() => setSidebarOpen(!sidebarOpen)}
-      >
-        <AiOutlineLeft/>
-      </button>
-      <div className="logoContent">
-        <div className="imgContent">
-          <img src={logo} alt="Logo" />
-        </div>
-        <h2>Rent-A-Car</h2>
+    <div
+      className={`${classes.sidebar} ${
+        !sidebarCtx.isOpen && classes.sidebar_close
+      }`}
+    >
+      <div className={classes.sidebar__logo}>
+        <img src={images.logo} alt="logo" />
+        <h1>Rent-a-car</h1>
       </div>
-      {DataLinks.map((item) => (
-        <SidebarLink key={item.label} item={item} sidebarOpen={sidebarOpen} />
-      ))}
-      <Divider />
-      {SecondaryLinks.map((item) => (
-        <SidebarLink key={item.label} item={item} sidebarOpen={sidebarOpen} />
-      ))}
-      <Divider />
-      <ThemeToggle sidebarOpen={sidebarOpen} toggleTheme={toggleTheme} />
-    </SidebarContainer>
-  ) 
+      <div className={classes.sidebar__menu}>
+        {sidebarNav.map((nav, index) => (
+          <Link
+            to={nav.link}
+            key={index}
+            className={`${classes.sidebar__menu__item} ${
+              activeIndex === index && classes.active
+            }`}
+            onClick={openSidebarHandler}
+          >
+            <div className={classes.sidebar__menu__item__icon}>
+              <Icon icon={nav.icon} />
+            </div>
+            <div className={classes.sidebar__menu__item__txt}>
+              {(nav.section)}
+            </div>
+          </Link>
+        ))}
+      </div>
+      <div className={[classes.sidebar__menu, classes.logout].join("")}>
+        <Link
+          to="/login"
+          className={classes.sidebar__menu__item}
+          onClick={logoutHandler}
+        >
+          <div className={classes.sidebar__menu__item__icon}>
+            <Icon icon="tabler:logout" />
+          </div>
+          <div className={classes.sidebar__menu__item__txt}>{("logout")}</div>
+        </Link>
+      </div>
+      <div className={[classes.sidebar__menu, classes.wrapper].join("")}>
+        <ThemeBox/>
+      </div>
+      
+    </div>
+
+  )
 }
+
+
+
+export default Sidebar;
