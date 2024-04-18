@@ -8,11 +8,11 @@ import { SidebarContextProvider } from './commons/components/store/sidebarContex
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-  <ThemeContextProvider>
-        <SidebarContextProvider>
+    <ThemeContextProvider>
+      <SidebarContextProvider>
           <App />
-        </SidebarContextProvider>
-      </ThemeContextProvider>
+      </SidebarContextProvider>
+    </ThemeContextProvider>
   </React.StrictMode>,
 )
  

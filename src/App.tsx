@@ -1,7 +1,8 @@
 import React from "react"
-import { BrowserRouter } from "react-router-dom";
-import Sidebar from "./commons/components/Sidebar/Sidebar";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import '../src/commons/scss/App.scss'
+import MainLayout from "./commons/layouts/MainLayout";
+import Customers from "./commons/components/Pages/Customers";
 
 
 
@@ -13,7 +14,11 @@ function App(): JSX.Element {
   return (
       <div className="App">
         <BrowserRouter>
-            <Sidebar/> 
+          <Routes>
+            <Route path="/" element={<MainLayout />}>
+              <Route path="/customers" element={<Customers />} />
+            </Route>
+          </Routes>
         </BrowserRouter>
       </div>
         

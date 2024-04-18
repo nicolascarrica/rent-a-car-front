@@ -7,7 +7,7 @@ import classes from "./Sidebar.module.scss";
 import images from "../../constants/images";
 import sidebarNav from "../Config/sidebarNav";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import ThemeBox from "../ThemeBox/ThemeBox";
+
 function Sidebar() {
   const [activeIndex, setActiveIndex] = useState(0);
   const { width } = useWindowSize();
@@ -71,11 +71,7 @@ function Sidebar() {
           </div>
           <div className={classes.sidebar__menu__item__txt}>{("logout")}</div>
         </Link>
-      </div>
-      <div className={[classes.sidebar__menu, classes.wrapper].join("")}>
-        <ThemeBox/>
-      </div>
-      
+      </div>  
     </div>
 
   )

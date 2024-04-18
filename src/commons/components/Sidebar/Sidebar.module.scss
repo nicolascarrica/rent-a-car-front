@@ -114,18 +114,7 @@
 .logout {
   align-self: flex-end;
 }
-.wrapper {
-  flex: 1;
-  // @include flex(center, flex-start);
-  // @media screen and (max-width: 975px) {
-  //   justify-content: space-evenly;
-  // }
-  // @media screen and (max-width: 325px) {
-  //   order: 2;
-  //   margin-top: 0.5rem;
-  //   justify-content: space-between;
-  // }
-}
+
 
 html[dir="rtl"] {
   .sidebar {
