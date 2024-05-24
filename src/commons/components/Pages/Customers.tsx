@@ -1,33 +1,36 @@
+import React from "react";
 import useFetch from "../../hooks/useFetch";
-import { useEffect } from "react";
+import CustomerTable from "../Tables/CustomerTable";
+import { ICustomersTable } from "../../interfaces/Itable";
+import { customers, customersHeader } from "../../constants/table";
+import LoadingSpinner from "../UI/loadingSpinner/LoadingSpinner";
+const url = 'http://localhost:3000/api/v1/users'
 
-const URL_API = import.meta.env.VITE_URL_API_BASE;
-const BASE_URL = '/users';
-
-function Customers() {
-  const { data, error, status } = useFetch(`${URL_API}${BASE_URL}`);
-  console.log(`${URL_API}${BASE_URL}`)
-
-  useEffect(() => {
-    if (error) {
-      console.error("Error fetching data:", error.message);
-    }
-  }, [error]);
-
+function Customers(): JSX.Element {
+  const { data, error, status} = useFetch<ICustomersTable[]>(url);
+  
   let customerTable;
 
-  if (status === 'loading') {
-    customerTable = <p>Loading lpm...</p>;
-  } else if (error) {
-    customerTable = <p>Error: {error.message}</p>;
-  } else if (data) {
-    // Renderiza tus datos aquí
-    customerTable = <p>'hola'</p>;
+  if (status === "loading") {
+    customerTable = <LoadingSpinner />;
+  } 
+
+  if (error) {
+    customerTable = (
+      <CustomerTable limit={10} headData={customersHeader} bodyData={customers} />
+    );
+  }
+
+  if (status === "fetched" && data) {
+    console.log("Data:", data);
+    customerTable = (
+      <CustomerTable limit={10} headData={customersHeader} bodyData={data} />
+    );
   }
 
   return (
     <section>
-      <h2 className="title">Customers</h2>
+      <h2 className="title">{("Customers")}</h2>
       {customerTable}
     </section>
   );
