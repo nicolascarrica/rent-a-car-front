@@ -1,10 +1,11 @@
-export interface ITopCustomers {
+export interface ITopCustomers extends Object {
   username: string;
-  reservations: number;
+  order: number;
+  price: string;
 }
 
-export type TLatestReservations = {
-  reservationId: string;
+export type ILatestTransactions = {
+  orderId: string;
   customer: string;
   totalPrice: string;
   date: string;
@@ -12,17 +13,17 @@ export type TLatestReservations = {
 };
 
 export interface ICustomersTable {
-  ID: number | string;
-  userName: string;
-  docNumber: string;
+  id: number | string;
+  name: string;
+  lastName: string;
   email: string;
-  phoneNumber: string;
-  totalOrders: number;
-  totalSpend: string;
-  location: string;
+  phone: string;
+  docType: string;
+  docNumber: string;
+  nationality: string;
 }
 
-export interface ICarsTable {
+export interface IProductsTable {
   ID: number | string;
   pic: string;
   product: string;
@@ -33,9 +34,9 @@ export interface ICarsTable {
 
 export type complex =
   | ITopCustomers
-  | TLatestReservations
+  | ILatestTransactions
   | ICustomersTable
-  | ICarsTable;
+  | IProductsTable;
 
 export interface ITable {
   limit?: number;
@@ -43,8 +44,8 @@ export interface ITable {
   headData: string[];
   bodyData: (
     | ITopCustomers
-    | TLatestReservations
+    | ILatestTransactions
     | ICustomersTable
-    | ICarsTable
+    | IProductsTable
   )[];
 }
