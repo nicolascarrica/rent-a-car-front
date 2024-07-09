@@ -6,7 +6,7 @@ import Badge from "../UI/badge/Badge";
 import Modal from "../UI/modal/Modal";
 import { Icon } from "@iconify/react";
 import classes from "./CustomerTable.module.scss";
-import { deleteItemFromDatabase } from "../Service/apiService";
+import { deleteItemFromDatabase } from "../Service/Customers/customersService";
 
 const CustomerTable: React.FC<Props> = (props) => {
   const [showModal, setShowModal] = useState(false);
