@@ -6,21 +6,14 @@ import classes from './CreateCustomer.module.scss';
 import Input from '../../UI/input/Input';
 import Button from '../../UI/button/Button';
 import { Link, useNavigate } from 'react-router-dom';
+import { CustomerFormData } from '../../Service/Customers/Interface';
+import { createCustomer } from '../../Service/Customers/customersService';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-interface FormData {
-  name: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  docType: string;
-  docNumber: string;
-  nationality: string;
-  address: string;
-  birthDate: string;
-}
 
 const CreateCustomer = () => {
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<CustomerFormData>({
     name: '',
     lastName: '',
     email: '',
@@ -35,36 +28,22 @@ const CreateCustomer = () => {
   const navigate = useNavigate();
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-  
-    try {
-      const response = await fetch('http://localhost:3000/api/v1/users', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          lastName: formData.lastName,
-          docType: formData.docType,
-          docNumber: formData.docNumber,
-          nationality: formData.nationality,
-          address: formData.address,
-          phone: formData.phone,
-          email: formData.email,
-          birthDate: formData.birthDate,
-        }),
-      });
-  
-      if (response.ok) {
-        const data = await response.json();
-        console.log('User created:', data);
-        navigate('/customers');
-      } else {
-        const errorData = await response.json();
-        console.error('Error to create user:', errorData);
-      }
-    } catch (error) {
-      console.error('Error to create user', error);
+
+    const result = await createCustomer(formData);
+
+    if (result.success) {
+      toast.success('User has been created successfully!', {
+        position: 'top-right',
+        autoClose: 3000,
+    });
+
+      setTimeout(() => navigate('/customers'), 3000);
+    } else {
+      toast.error('Error to create user: ' + result.error, {
+        position: 'top-right',
+        autoClose: 3000,
+      })
+      throw new Error('Failed to create user. Please check the provided data and try again.');
     }
   };
 
@@ -78,6 +57,7 @@ const CreateCustomer = () => {
 
   return (
     <div className={classes.create}>
+      <ToastContainer />
       <Card>
         <div className={classes.account}>
           <h1>
@@ -117,6 +97,7 @@ const CreateCustomer = () => {
           <Input
             id="docType"
             type="text"
+            options={['DNI', 'ID', 'PASSPORT']}
             placeholder="Doc Type"
             value={formData.docType}
             onChange={handleChange}
