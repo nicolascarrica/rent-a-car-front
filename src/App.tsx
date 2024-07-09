@@ -2,7 +2,9 @@ import React from "react"
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import '../src/commons/scss/App.scss'
 import MainLayout from "./commons/layouts/MainLayout";
-import Customers from "./commons/components/Pages/Customers";
+import Customers from "./commons/components/Pages/Customer/Customers";
+import CustomerEdit from "./commons/components/Pages/Customer/CustomerEdit";
+import CustomerCreate from "./commons/components/Pages/Customer/CustomerCreate";
 
 
 
@@ -17,6 +19,8 @@ function App(): JSX.Element {
           <Routes>
             <Route path="/" element={<MainLayout />}>
               <Route path="/customers" element={<Customers />} />
+              <Route path="/customers/:userId" element={ <CustomerEdit />} />
+              <Route path="/add-customer" element={ <CustomerCreate />} />
             </Route>
           </Routes>
         </BrowserRouter>
