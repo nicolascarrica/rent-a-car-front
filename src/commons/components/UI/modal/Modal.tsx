@@ -20,6 +20,7 @@ interface IModal {
   title: string;
   message: string;
   onConfirm: () => void;
+  onCancel: () => void;
 }
 
 const ModalOverlay: React.FC<IModal> = (props) => {
@@ -34,11 +35,10 @@ const ModalOverlay: React.FC<IModal> = (props) => {
           <p>{props.message}</p>
         </div>
         <footer className={classes.actions}>
-          <Button outline={true} onClick={props.onConfirm}>
-            {("cancel")}
-          </Button>
+          <Button outline={true} onClick={props.onCancel}>
+            Cancel          </Button>
           <button className={classes.delete} onClick={props.onConfirm}>
-            {("delete")}
+            Delete
           </button>
         </footer>
       </div>
@@ -60,6 +60,7 @@ const Modal: React.FC<IModal> = (props) => {
           title={props.title}
           message={props.message}
           onConfirm={props.onConfirm}
+          onCancel={props.onCancel}
         />,
         modalOverlay
       )}
