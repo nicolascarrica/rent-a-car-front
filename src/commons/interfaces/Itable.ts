@@ -21,6 +21,10 @@ export interface ICustomersTable {
   docType: string;
   docNumber: string;
   nationality: string;
+  address: string;
+  birthDate: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface IProductsTable {
