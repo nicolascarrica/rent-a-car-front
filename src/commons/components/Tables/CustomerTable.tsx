@@ -6,12 +6,42 @@ import Badge from "../UI/badge/Badge";
 import Modal from "../UI/modal/Modal";
 import { Icon } from "@iconify/react";
 import classes from "./CustomerTable.module.scss";
+import { deleteItemFromDatabase } from "../Service/apiService";
 
 const CustomerTable: React.FC<Props> = (props) => {
   const [showModal, setShowModal] = useState(false);
-  function showModalHandler() {
+  const [itemToDelete, setItemToDelete] = useState<number | string>();
+
+  const showModalHandler = (id: number|string) => {
+    setItemToDelete(id);
     setShowModal((prev) => !prev);
-  }
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (itemToDelete !== undefined) {
+      const result = await deleteItemFromDatabase(itemToDelete);
+      if (result) {
+        setDataShow((prevData) =>
+          prevData.filter((item) => {
+            if ('id' in item) {
+              return item.id !== itemToDelete;
+            } else if ('orderId' in item) {
+              return item.orderId !== itemToDelete;
+            } else if ('ID' in item) {
+              return item.ID !== itemToDelete;
+            }
+            return true;
+          })
+        );
+      }
+    }
+    setShowModal(false);
+  };
+
+  const handleDeleteCancel = () => {
+    setShowModal(false);
+  };
+
 
   function tableBody(item: complex, index: number) {
     //for implementing top customers
@@ -59,7 +89,7 @@ const CustomerTable: React.FC<Props> = (props) => {
             <div className={classes.actions__box}>
               <div
                 className={classes.actions__delete}
-                onClick={showModalHandler}
+                onClick={() => showModalHandler(item.id)}
               >
                 <Icon icon="fluent:delete-24-regular" width="24" />
               </div>
@@ -93,7 +123,7 @@ const CustomerTable: React.FC<Props> = (props) => {
             <div className={classes.actions__box}>
               <div
                 className={classes.actions__delete}
-                onClick={showModalHandler}
+                onClick={() => showModalHandler(item.ID)}
               >
                 <Icon icon="fluent:delete-24-regular" width="24" />
               </div>
@@ -150,9 +180,10 @@ const CustomerTable: React.FC<Props> = (props) => {
       {/* modal for delete customer and product case*/}
       {showModal ? (
         <Modal
-          title={("deleteCustomer")}
-          message={("modalMessage")}
-          onConfirm={showModalHandler}
+          title={("Delete Item")}
+          message={("Are you sure you want to delete this item?")}
+          onConfirm={handleDeleteConfirm}
+          onCancel={handleDeleteCancel}
         />
       ) : null}
 
