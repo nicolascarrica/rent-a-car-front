@@ -4,6 +4,7 @@ import classes from "./Input.module.scss";
 interface Props {
   id: string;
   type: string;
+  options?: string[];
   minLength?: number;
   maxLength?: number;
   placeholder?: string;
