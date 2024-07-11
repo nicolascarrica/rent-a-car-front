@@ -5,10 +5,10 @@ import Card from "../UI/card/Card";
 import Badge from "../UI/badge/Badge";
 import Modal from "../UI/modal/Modal";
 import { Icon } from "@iconify/react";
-import classes from "./CustomerTable.module.scss";
+import classes from "./CustomTable.module.scss";
 import { deleteItemFromDatabase } from "../Service/Customers/customersService";
 
-const CustomerTable: React.FC<Props> = (props) => {
+const CustomTable: React.FC<Props> = (props) => {
   const [showModal, setShowModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<number | string>();
 
@@ -231,6 +231,6 @@ const CustomerTable: React.FC<Props> = (props) => {
   );
 };
 
-export default CustomerTable
+export default CustomTable
 
     

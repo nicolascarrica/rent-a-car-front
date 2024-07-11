@@ -1,6 +1,6 @@
 
 import useFetch from "../../../hooks/useFetch";
-import CustomerTable from "../../Tables/CustomerTable";
+import CustomTable from "../../Tables/CustomTable";
 import { ICustomersTable } from "../../../interfaces/Itable";
 import { customers, customersHeader } from "../../../constants/table";
 import LoadingSpinner from "../../UI/loadingSpinner/LoadingSpinner";
@@ -18,13 +18,13 @@ function Customers(): JSX.Element {
 
   if (error) {
     customerTable = (
-      <CustomerTable limit={10} headData={customersHeader} bodyData={customers} />
+      <CustomTable limit={10} headData={customersHeader} bodyData={customers} />
     );
   }
 
   if (status === "fetched" && data) {
     customerTable = (
-      <CustomerTable limit={10} headData={customersHeader} bodyData={data} />
+      <CustomTable limit={10} headData={customersHeader} bodyData={data} />
     );
   }
 
