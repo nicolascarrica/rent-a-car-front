@@ -20,7 +20,7 @@ function CustomerEdit() {
    let customerEdit;
 
    const { data, error, status } = useFetch<ICustomersTable>(
-    `${url}/${userId}.json`
+    `${url}/${userId}`,
    );
    
 
