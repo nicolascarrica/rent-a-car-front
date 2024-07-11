@@ -16,7 +16,6 @@ function CustomerEdit() {
      (item) => item.id.toString() === userId
    )[0];
 
-   console.log(customerInfo)
    let customerEdit;
 
    const { data, error, status } = useFetch<ICustomersTable>(
@@ -34,7 +33,6 @@ function CustomerEdit() {
 
    if (status === "fetched" && data) {
      customerEdit = <EditCustomer customer={data} />;
-     console.log(data);
    }
 
    return (
