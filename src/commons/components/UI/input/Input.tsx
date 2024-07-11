@@ -22,7 +22,7 @@ interface IImperativeHandler {
 }
 const Input = React.forwardRef<IImperativeHandler, Props>((props, ref) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [value, setValue] = useState(props.value || "");
+  const [value, setValue] = useState(props.value ?? "");
 
   function inputChangeHandler(e: React.FormEvent<HTMLInputElement>) {
     setValue(e.currentTarget.value);
@@ -56,7 +56,7 @@ const Input = React.forwardRef<IImperativeHandler, Props>((props, ref) => {
         value={value}
         readOnly={props.readonly || false}
         onChange={inputChangeHandler}
-        autoComplete={props.autocomplete || "off"}
+        autoComplete={props.autocomplete ?? "off"}
       />
     </div>
   );
