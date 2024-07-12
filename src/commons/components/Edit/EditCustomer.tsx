@@ -1,12 +1,12 @@
 import { Icon } from '@iconify/react';
-import { ICustomersTable } from '../../../interfaces/Itable';
-import Card from '../../UI/card/Card';
-import classes from './EditCustomer.module.scss';
-import Button from '../../UI/button/Button';
+import { ICustomersTable } from '../../interfaces/Itable';
+import Card from '../UI/card/Card';
+import classes from './Edit.module.scss';
+import Button from '../UI/button/Button';
 import { Link, useNavigate } from 'react-router-dom';
-import Input from '../../UI/input/Input';
+import Input from '../UI/input/Input';
 import { FormEvent, useEffect, useState } from 'react';
-import { updateCustomer } from '../../Service/Customers/customersService';
+import { updateCustomer } from '../Service/Customers/customersService';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

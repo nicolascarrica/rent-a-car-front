@@ -1,13 +1,13 @@
 
 import { useState, FormEvent } from 'react';
 import { Icon } from '@iconify/react/dist/iconify.js';
-import Card from '../../UI/card/Card';
-import classes from './CreateCustomer.module.scss';
-import Input from '../../UI/input/Input';
-import Button from '../../UI/button/Button';
+import Card from '../UI/card/Card';
+import classes from './Create.module.scss';
+import Input from '../UI/input/Input';
+import Button from '../UI/button/Button';
 import { Link, useNavigate } from 'react-router-dom';
-import { CustomerFormData } from '../../Service/Customers/Interface';
-import { createCustomer } from '../../Service/Customers/customersService';
+import { CustomerFormData } from '../Service/Customers/Interface';
+import { createCustomer } from '../Service/Customers/customersService';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
