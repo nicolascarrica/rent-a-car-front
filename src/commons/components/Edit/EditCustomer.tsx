@@ -83,6 +83,7 @@ const EditCustomer: React.FC<{ customer?: ICustomersTable }> = (props) => {
     const { id, value } = e.currentTarget;
     setFormData({ ...formData, [id]: value });
   };
+  
 
   return (
     <div className={classes.edit__container}>
