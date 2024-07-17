@@ -21,3 +21,27 @@ export interface CustomerEditData {
   address?: string;
   birthDate?: string;
 }
+
+export interface CarFormData {
+  brand: string;
+  model: string;
+  kms: number;
+  year: number;
+  color: string;
+  price: number;
+  transmission: string;
+  airConditioning?: boolean;
+  reserved?: boolean;
+}
+
+export interface CarEditData {
+  brand?: string;
+  model?: string;
+  kms?: number;
+  year?: number;
+  color?: string;
+  price?: number;
+  transmission?: string;
+  airConditioning?: boolean;
+  reserved?: boolean;
+}
