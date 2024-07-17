@@ -27,20 +27,26 @@ export interface ICustomersTable {
   updatedAt: string;
 }
 
-export interface IProductsTable {
-  ID: number | string;
-  pic: string;
-  product: string;
-  inventory: number;
-  price: string;
-  category: string;
+export interface ICarsTable {
+  id: number | string;
+  brand: string;
+  model: string;
+  kms: number;
+  year: number;
+  color: string;
+  price: number;
+  transmission: string;
+  airConditioning?: boolean;
+  img?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export type complex =
   | ITopCustomers
   | ILatestTransactions
   | ICustomersTable
-  | IProductsTable;
+  | ICarsTable;
 
 export interface ITable {
   limit?: number;
@@ -50,6 +56,6 @@ export interface ITable {
     | ITopCustomers
     | ILatestTransactions
     | ICustomersTable
-    | IProductsTable
+    | ICarsTable
   )[];
 }
