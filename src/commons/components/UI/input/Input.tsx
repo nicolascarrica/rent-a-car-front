@@ -9,7 +9,7 @@ interface Props {
   maxLength?: number;
   placeholder?: string;
   classes?: string;
-  value?: string;
+  value?: string | number;
   ref?: HTMLInputElement;
   readonly?: boolean;
   autocomplete?: string;
@@ -39,7 +39,7 @@ const Input = React.forwardRef<IImperativeHandler, Props>((props, ref) => {
   useImperativeHandle(ref, () => {
     return {
       focus: inputFocused,
-      value: value,
+      value: String(value),
     };
   });
 
