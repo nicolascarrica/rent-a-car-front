@@ -3,7 +3,7 @@ import { ICustomersTable } from "../../../interfaces/Itable";
 import { customers } from "../../../constants/table";
 import LoadingSpinner from "../../UI/loadingSpinner/LoadingSpinner";
 import useFetch from "../../../hooks/useFetch";
-import EditCustomer from "../../Edit/EditCustomer/EditCustomer";
+import EditCustomer from "../../Edit/EditCustomer";
 const url = 'http://localhost:3000/api/v1/users'
 
 
