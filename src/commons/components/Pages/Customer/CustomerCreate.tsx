@@ -1,4 +1,4 @@
-import CreateCustomer from "../../Create/CreateCustomer/CreateCustomer"
+import CreateCustomer from "../../Create/CreateCustomer"
 
 function CustomerCreate() {
   return(
