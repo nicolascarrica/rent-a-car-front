@@ -7,28 +7,32 @@ import Modal from "../UI/modal/Modal";
 import { Icon } from "@iconify/react";
 import classes from "./CustomTable.module.scss";
 import { deleteItemFromDatabase } from "../Service/Customers/customersService";
+import { deleteCarFromDatabase } from "../Service/Customers/carsService";
 
 const CustomTable: React.FC<Props> = (props) => {
   const [showModal, setShowModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<number | string>();
+  const [itemType, setItemType] = useState<"user" | "car">(); // New state to track item type
 
-  const showModalHandler = (id: number|string) => {
+  const showModalHandler = (id: number|string, type: "user" | "car") => {
     setItemToDelete(id);
-    setShowModal((prev) => !prev);
+    setItemType(type);
+    setShowModal(true);
   };
-
   const handleDeleteConfirm = async () => {
-    if (itemToDelete !== undefined) {
-      const result = await deleteItemFromDatabase(itemToDelete);
+    if (itemToDelete !== undefined && itemType) {
+      let result;
+      if (itemType === "user") {
+        result = await deleteItemFromDatabase(itemToDelete);
+      } else if (itemType === "car") {
+        result = await deleteCarFromDatabase(itemToDelete);
+      }
+
       if (result) {
         setDataShow((prevData) =>
           prevData.filter((item) => {
             if ('id' in item) {
               return item.id !== itemToDelete;
-            } else if ('orderId' in item) {
-              return item.orderId !== itemToDelete;
-            } else if ('ID' in item) {
-              return item.ID !== itemToDelete;
             }
             return true;
           })
@@ -89,7 +93,7 @@ const CustomTable: React.FC<Props> = (props) => {
             <div className={classes.actions__box}>
               <div
                 className={classes.actions__delete}
-                onClick={() => showModalHandler(item.id)}
+                onClick={() => showModalHandler(item.id, "user")}
               >
                 <Icon icon="fluent:delete-24-regular" width="24" />
               </div>
@@ -102,33 +106,36 @@ const CustomTable: React.FC<Props> = (props) => {
           </td>
         </tr>
       );
-    } else if ("category" in item) {
-      //for implementing products table
+    } else if ("brand" in item) {
+      //for implementing cars table
       return (
         <tr key={index}>
-          <td>{item.ID}</td>
+          <td>{item.id}</td>
           <td className={classes.product_name}>
-            <img
+            {/* <img
               className={classes.product_img}
-              src={item.pic}
-              alt="user avatar"
-            />
-            {item.product}
+              src={item.img}
+              alt="car avatar"
+            /> */}
+            {item.brand}
           </td>
-          <td>{item.inventory}</td>
+          <td>{item.model}</td>
+          <td>{item.kms}</td>
+          <td>{item.year}</td>
+          <td>{item.color}</td>
           <td>{item.price}</td>
-          <td>{item.category}</td>
+          <td>{item.transmission}</td>
           <td className={classes.actions}>
             <Icon icon="charm:menu-kebab" />
             <div className={classes.actions__box}>
               <div
                 className={classes.actions__delete}
-                onClick={() => showModalHandler(item.ID)}
+                onClick={() => showModalHandler(item.id, "car")}
               >
                 <Icon icon="fluent:delete-24-regular" width="24" />
               </div>
               <div className={classes.actions__edit}>
-                <Link to={`/products/${item.ID}`}>
+                <Link to={`/cars/${item.id}`}>
                   <Icon icon="fluent:edit-16-regular" width="24" />
                 </Link>
               </div>
@@ -146,16 +153,6 @@ const CustomTable: React.FC<Props> = (props) => {
   };
 
   const [dataShow, setDataShow] = useState(initDataShow);
-  // const [selectedCategory, setSelectedCategory] = useState(
-  //   props.selectedCategory
-  // );
-
-  // if (props.selectedCategory) {
-  //   if (selectedCategory !== props.selectedCategory)
-  //     setDataShow(props.bodyData);
-  // }
-  // setSelectedCategory(props.selectedCategory);
-
   let pages = 1;
   let range: number[] = [];
 
