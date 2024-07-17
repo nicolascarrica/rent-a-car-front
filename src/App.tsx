@@ -5,6 +5,9 @@ import MainLayout from "./commons/layouts/MainLayout";
 import Customers from "./commons/components/Pages/Customer/Customers";
 import CustomerEdit from "./commons/components/Pages/Customer/CustomerEdit";
 import CustomerCreate from "./commons/components/Pages/Customer/CustomerCreate";
+import Cars from "./commons/components/Pages/Cars/Cars";
+import CarsCreate from "./commons/components/Pages/Cars/CarsCreate";
+import CarsEdit from "./commons/components/Pages/Cars/CarsEdit";
 
 
 
@@ -21,6 +24,9 @@ function App(): JSX.Element {
               <Route path="/customers" element={<Customers />} />
               <Route path="/customers/:userId" element={ <CustomerEdit />} />
               <Route path="/add-customer" element={ <CustomerCreate />} />
+              <Route path="/cars" element={<Cars />} />
+              <Route path="cars/:carId" element={<CarsEdit />} />
+              <Route path="add-cars" element={<CarsCreate />}/>
             </Route>
           </Routes>
         </BrowserRouter>
