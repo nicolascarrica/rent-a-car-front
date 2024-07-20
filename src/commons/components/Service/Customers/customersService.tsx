@@ -2,7 +2,6 @@ import { CustomerEditData, CustomerFormData } from "./Interface";
 
 export const deleteItemFromDatabase = async (id: number | string) => {
   try {
-    
     const response = await fetch(`http://localhost:3000/api/v1/users/${id}`, {
       method: 'DELETE',
       headers: {
@@ -10,13 +9,31 @@ export const deleteItemFromDatabase = async (id: number | string) => {
       },
     });
 
-    if (!response.ok) {
-      throw new Error('Error al eliminar el elemento');
-    }
+    if (response.ok) {
 
-    return await response.json();
+      if (response.status === 204) { 
+        return true;
+      }
+
+      const contentType = response.headers.get('Content-Type');
+      if (contentType && contentType.includes('application/json')) {
+        try {
+          const result = await response.json();
+          return result;
+        } catch (error) {
+          console.error('Error parsing response JSON:', error);
+        }
+      } else {
+
+        return true;
+      }
+    } else {
+      const errorText = await response.text();
+      throw new Error(`Error ${response.status}: ${errorText}`);
+    }
   } catch (error) {
     console.error('Error:', error);
+    return false;
   }
 };
 
