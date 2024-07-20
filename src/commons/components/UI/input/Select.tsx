@@ -1,4 +1,4 @@
-import React, { useImperativeHandle, useRef, useState } from "react";
+import React, { useEffect, useImperativeHandle, useRef, useState } from "react";
 import classes from "./Input.module.scss";
 
 interface SelectOption {
@@ -43,6 +43,12 @@ const Select = React.forwardRef<IImperativeHandler, Props>((props, ref) => {
     };
   });
 
+  useEffect(() => {
+    if (props.value !== undefined) {
+      setValue(props.value);
+    }
+  }, [props.value]);
+
   return (
     <div className={`${classes.form__control} ${props.classes}`}>
       <label htmlFor={props.id}>{`${props.id}`}</label>
@@ -52,6 +58,9 @@ const Select = React.forwardRef<IImperativeHandler, Props>((props, ref) => {
         value={value}
         onChange={selectChangeHandler}
       >
+        <option value="">
+          Select {props.id}
+        </option>
         {props.options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}
