@@ -45,3 +45,22 @@ export interface CarEditData {
   airConditioning?: boolean;
   reserved?: boolean;
 }
+
+export interface ReservationFormData{
+  startDate: Date;
+  endDate: Date;
+  paymentMethod: string;
+  statusId: string;
+  carId: number;
+  userId: number;
+}
+
+export interface ReservationEditData{
+  startDate?: string;
+  endDate?: string;
+  pricePerDay?: number;
+  paymentMethod?: string;
+  statusId?: string;
+  carId?: number;
+  userId?: number;
+}
