@@ -43,10 +43,9 @@ const EditCustomer: React.FC<{ customer?: ICustomersTable }> = (props) => {
     e.preventDefault();
   
     if (props.customer?.id) {
-      // Log form data for debugging
+
       console.log('Form data before validation:', formData);
   
-      // Ensure no NaN values are being sent
       const isFormDataValid = Object.values(formData).every(value => value !== undefined && value !== '' && !Number.isNaN(value));
       
       if (!isFormDataValid) {
@@ -54,11 +53,11 @@ const EditCustomer: React.FC<{ customer?: ICustomersTable }> = (props) => {
           position: 'top-right',
           autoClose: 3000,
         });
-        console.error('Invalid form data:', formData); // Log invalid form data
+        console.error('Invalid form data:', formData); 
         return;
       }
   
-      console.log('Form data after validation:', formData); // Log valid form data
+      console.log('Form data after validation:', formData); 
   
       const result = await updateCustomer(props.customer.id.toString(), formData);
   
