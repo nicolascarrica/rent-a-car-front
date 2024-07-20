@@ -1,4 +1,4 @@
-import React, { useImperativeHandle, useRef, useState } from "react";
+import React, { useEffect, useImperativeHandle, useRef, useState } from "react";
 import classes from "./Input.module.scss";
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
   maxLength?: number;
   placeholder?: string;
   classes?: string;
-  value?: string | number;
+  value?: string | number | Date;
   ref?: HTMLInputElement;
   readonly?: boolean;
   autocomplete?: string;
@@ -22,7 +22,19 @@ interface IImperativeHandler {
 }
 const Input = React.forwardRef<IImperativeHandler, Props>((props, ref) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [value, setValue] = useState(props.value ?? "");
+
+ 
+  const initialValue = props.value instanceof Date 
+    ? props.value.toISOString().split("T")[0] : props.value ?? "";
+  
+  const [value, setValue] = useState<string | number>(initialValue);
+  useEffect(() => {
+    if (props.value instanceof Date) {
+      setValue(props.value.toISOString().split("T")[0]);
+    } else {
+      setValue(props.value ?? "");
+    }
+  }, [props.value]);
 
   function inputChangeHandler(e: React.FormEvent<HTMLInputElement>) {
     setValue(e.currentTarget.value);
