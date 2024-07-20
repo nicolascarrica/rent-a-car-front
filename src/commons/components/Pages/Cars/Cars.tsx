@@ -9,6 +9,7 @@ const url = 'http://localhost:3000/api/v1/cars'
 
 function Cars(): JSX.Element {
   const { data, error, status} = useFetch<ICarsTable[]>(url);
+  console.log(data)
   
   let carTable;
 
