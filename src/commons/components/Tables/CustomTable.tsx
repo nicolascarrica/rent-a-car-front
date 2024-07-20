@@ -8,13 +8,14 @@ import { Icon } from "@iconify/react";
 import classes from "./CustomTable.module.scss";
 import { deleteItemFromDatabase } from "../Service/Customers/customersService";
 import { deleteCarFromDatabase } from "../Service/Customers/carsService";
+import { deleteReservationFromDatabase } from "../Service/Customers/reservationService";
 
 const CustomTable: React.FC<Props> = (props) => {
   const [showModal, setShowModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<number | string>();
-  const [itemType, setItemType] = useState<"user" | "car">(); // New state to track item type
+  const [itemType, setItemType] = useState<"user" | "car" | "reservation">(); // New state to track item type
 
-  const showModalHandler = (id: number|string, type: "user" | "car") => {
+  const showModalHandler = (id: number|string, type: "user" | "car" | "reservation") => {
     setItemToDelete(id);
     setItemType(type);
     setShowModal(true);
@@ -26,6 +27,8 @@ const CustomTable: React.FC<Props> = (props) => {
         result = await deleteItemFromDatabase(itemToDelete);
       } else if (itemType === "car") {
         result = await deleteCarFromDatabase(itemToDelete);
+      } else if (itemType === "reservation") {
+        result = await deleteReservationFromDatabase(itemToDelete);
       }
 
       if (result) {
@@ -143,7 +146,48 @@ const CustomTable: React.FC<Props> = (props) => {
           </td>
         </tr>
       );
+    } else if ("pricePerDay" in item) {
+      return (
+        <tr key={index}>
+          <td>{item.id}</td>
+          <td>{item.startDate.split('T')[0]}</td>
+          <td>{item.endDate.split('T')[0]}</td>
+          <td>{item.totalDays}</td>
+          <td>{item.pricePerDay}</td>
+          <td>{item.totalPrice}</td>
+          <td>{item.paymentMethod}</td>
+          <td>{item.statusId}</td>
+          <td className={classes.carId}>
+            <Link to={`/cars/${item.car.id}`}>
+            {item.car.id}
+            </Link>
+          </td>
+          <td className={classes.userId}>
+            <Link to={`/customers/${item.user.id}`}>
+            {item.user.id}
+            </Link>
+          </td>
+          <td className={classes.actions}>
+            <Icon icon="charm:menu-kebab" />
+            <div className={classes.actions__box}>
+              <div
+                className={classes.actions__delete}
+                onClick={() => showModalHandler(item.id, "reservation")}
+              >
+                <Icon icon="fluent:delete-24-regular" width="24" />
+              </div>
+              <div className={classes.actions__edit}>
+                <Link to={`/reservations/${item.id}`}>
+                  <Icon icon="fluent:edit-16-regular" width="24" />
+                </Link>
+              </div>
+            </div>
+          </td>
+        </tr>
+      )
     }
+    
+    
   }
 
   const initDataShow = () => {
