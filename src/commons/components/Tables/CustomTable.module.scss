@@ -69,6 +69,14 @@ td {
   margin: 0 0.5rem;
 }
 
+.carId,
+.userId {
+  :hover {
+    cursor: pointer;
+    color: var(--primaryColor);
+    transition: all 0.3s ease-in-out;
+  }
+}
 .actions {
   width: 20px;
   text-align: center;
