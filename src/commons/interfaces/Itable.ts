@@ -41,11 +41,26 @@ export interface ICarsTable {
   createdAt?: string;
   updatedAt?: string;
 }
+export interface IReservationsTable {
+  id: number | string;
+  startDate: string;
+  endDate: string;
+  totalDays: number;
+  pricePerDay: number;
+  totalPrice: number;
+  paymentMethod: string;
+  statusId: string;
+  car: ICarsTable;
+  user: ICustomersTable;
+  createdAt?: string;
+  updatedAt?: string;
+}
 
 export type complex =
   | ITopCustomers
   | ILatestTransactions
   | ICustomersTable
+  | IReservationsTable
   | ICarsTable;
 
 export interface ITable {
@@ -57,5 +72,6 @@ export interface ITable {
     | ILatestTransactions
     | ICustomersTable
     | ICarsTable
+    | IReservationsTable
   )[];
 }
