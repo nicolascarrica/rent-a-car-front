@@ -6,7 +6,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import Card from '../UI/card/Card';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import Input from '../UI/input/Input';
-import Select from '../UI/input/Select';  // Importa el componente Select
+import Select from '../UI/input/Select'; 
 import Button from '../UI/button/Button';
 import { createReservation } from '../Service/Customers/reservationService';
 
