@@ -51,22 +51,32 @@ This is the frontend application for the Rent-A-Car project, developed with Reac
 
 #### Home Page
 
-![Home Page](./images/home-page.png)
+![image](https://github.com/user-attachments/assets/08082f9c-8fee-466e-9909-e23e072a8f5b)
 
-#### Reservation Details
+#### Reservation Table
 
-![Reservation Details](./images/reservation-details.png)
+![image](https://github.com/user-attachments/assets/24929b88-6405-4af3-91ea-97974ac6992a)
+
 
 #### Create Reservation Form
 
-![Create Reservation Form](./images/create-reservation-form.png)
+![image](https://github.com/user-attachments/assets/7db4c0ff-2523-4826-a517-3dc0036cc3d6)
+
 
 #### Edit Reservation Form
 
-![Edit Reservation Form](./images/edit-reservation-form.png)
+![image](https://github.com/user-attachments/assets/70b0ddb9-95fb-40b2-a03c-fc60c66f005d)
 
-## Project Structure
+## Backend
 
-The project follows a standard React structure with functional components and TypeScript types. Here’s an overview of the project structure:
+To view the Backend part of this application, please visit [this repository](https://github.com/nicolascarrica/rent-a-car-backend).
+
+This link will take you to the backend repository where you can find the server-side code and instructions on how to run the backend application.
+
+## Stay in touch
+
+- Author - [Carrica Nicolas](https://www.linkedin.com/in/nicol%C3%A1s-carrica-28a7751a1/)
+- Twitter - [@nicocarri23](https://twitter.com/nicocarri23)
+
 
 
