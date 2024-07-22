@@ -11,6 +11,8 @@ import CarsEdit from "./commons/components/Pages/Cars/CarsEdit";
 import Reservations from "./commons/components/Pages/Reservation/Reservation";
 import ReservationEdit from "./commons/components/Pages/Reservation/ReservationEdit";
 import ReservationCreate from "./commons/components/Pages/Reservation/ReservationCreate";
+import Login from "./commons/components/Pages/Login/Login";
+import Dashboard from "./commons/components/Pages/Dashboard/Dashboard";
 
 export const ThemeContext = React.createContext<{ theme: string; setTheme: React.Dispatch<React.SetStateAction<string>> } | null>(null)
 
@@ -21,6 +23,7 @@ function App(): JSX.Element {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<MainLayout />}>
+              <Route index element={<Dashboard />} />
               <Route path="/customers" element={<Customers />} />
               <Route path="/customers/:userId" element={ <CustomerEdit />} />
               <Route path="/add-customer" element={ <CustomerCreate />} />
@@ -31,6 +34,7 @@ function App(): JSX.Element {
               <Route path="/reservations/:reservationId" element={<ReservationEdit />} />
               <Route path="add-reservation" element={<ReservationCreate />}/>
             </Route>
+            <Route path="/login" element={<Login />} />
           </Routes>
         </BrowserRouter>
       </div>
