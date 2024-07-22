@@ -64,3 +64,11 @@ export interface ReservationEditData{
   carId?: number;
   userId?: number;
 }
+
+
+export interface IsummData {
+  icon: string;
+  text: string;
+  amount: string;
+  currency: string;
+}
